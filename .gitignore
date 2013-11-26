@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+app/models/._message.rb
+app/models/._user.rb
+db/migrate/._20131126175209_create_users.rb
+db/migrate/._20131126181223_create_messages.rb
