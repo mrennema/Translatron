@@ -9,6 +9,7 @@ Trans::Application.routes.draw do
     collection do
       get 'index'
     end
+    resource :messages
   end
       
   resource :messages
