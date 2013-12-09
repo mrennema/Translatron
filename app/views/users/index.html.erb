@@ -2,11 +2,11 @@
 
 <% @users.each do |u| %>
 
-<%= 'User id: ' + u.id %> 
-<%= 'name: ' + u.name %>
-<%= 'language: ' + u.language %>
-<%= 'Play as this user?' %>
+<p><%= 'User id: ' + u.id.to_s + ' Name: ' + u.name + ' Language: ' + u.language %></p>
+<p><%= link_to 'Play as this user?', {controller: 'users', action: 'show', id: u} %> -
+   <%= link_to 'Edit', {controller: 'users', action: 'edit', id: u} %> -
+   <%= link_to 'Destroy', {controller: 'users', action: 'destroy', id: u}, method: :delete %></p>
 
 <% end %>
 
-<%= link_to 'Create a new user', new_users_path, class: "btn btn-info" %>
+<p><%= link_to 'Create a new user', new_users_path, class: "btn btn-info" %></p>
