@@ -4,4 +4,5 @@
 
 
 <p>Send a message</p>
-<p>Change language</p>
+<p>Current language is <%= @user.language %>. <%= link_to 'Change language?', {controller: 'users', action: 'edit', id: @user} %></p>
+<p><%= link_to 'Back', {controller: 'users', action: 'index'} %></p>
