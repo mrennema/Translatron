@@ -1,6 +1,16 @@
-<h1><%= User.find(@message.sender_id).name + " messaged " + User.find(@message.receiver_id).name + " @" + @message.created_at.to_s %></h1>
+<div class="container">
 
-<p>Message Contents</p>
-<p><%= @message.text %> </p>
+<h1><%= User.find(@message.sender_id).name + " messaged " + User.find(@message.receiver_id).name %></h1>
 
-<p><%= link_to 'Back', :back %></p>
+<div class="form-group">
+	<%= "Sent @ "+ @message.created_at.to_s %>
+</div>
+<div class="form-group">
+	<%= @message.text %>
+</div>
+
+<div class="list-group">
+	<%= link_to 'Back', :back, class: 'btn btn-default' %>
+</div>
+
+</div>

@@ -1,12 +1,29 @@
-<h1>Welcome to the TRANSLATRON</h1>
+<div class="container">
 
+		<h1>Welcome to the <em>TRANSLA<b>TRON</b></em></h1>
+		<table class="table">
+		    <tr>
+		      <th>User ID: </th>
+		      <th>Name: </th>
+		      <th>Language</th>
+		      <th>Selection</th>
+		      <th></th>
+		      <th></th>
+		    </tr>
 <% @users.each do |u| %>
 
-<p><%= 'User id: ' + u.id.to_s + ' - Name: ' + u.name + ' - Language: ' + u.language %></p>
-<p><%= link_to 'Play as this user?', {controller: 'users', action: 'show', id: u} %> -
-   <%= link_to 'Edit', {controller: 'users', action: 'edit', id: u} %> -
-   <%= link_to 'Destroy', {controller: 'users', action: 'destroy', id: u}, method: :delete %></p>
-
+<tr>
+<td><%= u.id.to_s %></td>
+<td><%= u.name %></td>
+<td><%= u.language %></td>
+<td><%= link_to 'Select this user?', {controller: 'users', action: 'show', id: u} %> </td>
+<td><%= link_to 'Edit', {controller: 'users', action: 'edit', id: u} %> </td>
+<td><%= link_to 'Destroy', {controller: 'users', action: 'destroy', id: u}, method: :delete %></td>
+</tr>
 <% end %>
 
-<p><%= link_to 'Create a new user', new_users_path, class: "btn btn-info" %></p>
+</table>
+
+<p><%= link_to 'Create a new user', new_users_path, class: 'btn btn-primary' %></p>
+
+</div>

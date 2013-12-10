@@ -1,26 +1,56 @@
-<h1>Hello <%= @user.name %></h1>
+<div class="container">
 
-<p>What would you like to do?</p>
+<h1 class="form-group">Hello <%= @user.name %></h1>
 
+<div class="form-group">Current language is <b><%= @user.language %></b>.</div>
+<div class="form-group">What would you like to do?</div>
+<div class="btn-group"><%= link_to 'Send a message', new_messages_path(sender_id: @user), class: 'btn btn-primary' %></div>
+<div class="btn-group"><%= link_to 'Change language?', {controller: 'users', action: 'edit', id: @user}, class: 'btn btn-primary' %></div>
 
-<p><%= link_to 'Send a message', new_messages_path(sender_id: @user) %></p>
-<p>Current language is <%= @user.language %>. <%= link_to 'Change language?', {controller: 'users', action: 'edit', id: @user} %></p>
-<p><%= link_to 'Back', { controller: 'users', action: 'index' } %></p>
-
-<p>Message Bank</p>
-<p>
-	<% @messages.each do |message| %>
+<table class="table", style="width:50%">
+    <h4>Inbox</h4>
+	<% @messages.order('created_at DESC').each do |message| %>
 	<% if message.sender_id == nil || message.receiver_id == nil || !User.exists?(message.receiver_id) || !User.exists?(message.sender_id) %>
 	<% next %>
 	<% end %> 
-	<p>
-	<% if @user.id == message.sender_id %>
-	<%= 'Sent to ' + User.find(message.receiver_id).name + " @" + message.created_at.to_s + ' ' %>
-	<%= link_to 'View', { controller: 'messages', action: 'show', id: message } %>
-	<% elsif @user.id == message.receiver_id %>
-	<%= 'Received from '  + User.find(sender_id).name + " @" + message.created_at.to_s + ' ' %>
-	<%= link_to 'View', { controller: 'messages', action: 'show', id: message } %>
+		<div class="panel-group" id="accordion" style="width:40%">
+			<% if @user.id == message.sender_id %>
+			  <div class="panel panel-default">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					  <%= 'Sent to ' + User.find(message.receiver_id).name + " @ " + message.created_at.to_s + ' ' %>
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapse" class="panel-collapse collapse in">
+			      <div class="panel-body">
+					  <%= message.text %>
+				  </div>
+			  </div>
+		  </div>
+		<% elsif @user.id == message.receiver_id %>
+		<div class="panel-group" id="accordion">
+		  <div class="panel panel-default">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+		<%= 'Received from '  + User.find(message.sender_id).name + " @ " + message.created_at.to_s + ' ' %>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+		  <%= message.text %>
+	  </div>
+  </div>
+</div>
+		<% end %>
+	</div>
+	</div>
 	<% end %>
-	</p>
-	<% end %>
-</p>
+</table>
+<br>
+<%= link_to 'Back', { controller: 'users', action: 'index' }, class: 'btn btn-default' %>
+
+</div>

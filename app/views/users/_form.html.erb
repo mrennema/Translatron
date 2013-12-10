@@ -1,15 +1,21 @@
 <%= form_for :user, url: { action: 'create' } do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </p>
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+	<div class="form-group">
+		<%= f.label :name %>
+		<%= f.text_field :name, class: 'form-control', style: 'width: 30%;' %>
+	</div>
+  </div>
  
-  <p>
-    <%= f.label :language %><br>
-    <%= f.select :language, 		[['English','english'],['Chinese','chinese'],['Spanish','spanish'],['Japanese','japanese'],['German','german']] %>
-  </p>
+  <div class="form-group">
+		<%= f.label :language %>
+		<div class="input-group">
+      	  <%= f.select :language, [['English','en'],['Chinese','cn'],['Spanish','es'],['Japanese','jp'],['German','de']] %>
+  		</div>
+  </div>
  
-  <p>
-    <%= f.submit %>
-  </p>
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+</form>
 <% end %>
