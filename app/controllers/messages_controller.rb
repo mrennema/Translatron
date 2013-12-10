@@ -1,22 +1,29 @@
 class MessagesController < ApplicationController
   
   def index
-    @messages = current_user.sent_messages.paginate :per_page => 10, :page =>    params[:page], :order => "created_at DESC"
+    @messages = Message.all
   end
   
   def show
-    @messages = current_user.sent_messages.find(params[:id])
+    @message = Message.find(params[:id])
   end
   
   def new
-    @message = current_user.sent_messages.build
-    @user_friendships = current_user.user_friendships.all
+    @message = Message.new
+    @sender = User.find(params[:sender_id])
+    @sender_id = :sender_id
+    @users = User.all
   end
   
   def create
+    @message = Message.new(message_params)
+    @message.save
+
+    redirect_to show_users_path(id: @message.sender_id)
   end
-  
-  def index
+
+  private
+  def message_params
+    params.require(:message).permit(:text, :sender_id, :receiver_id)
   end
-  
 end

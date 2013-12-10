@@ -3,18 +3,24 @@
 <p>What would you like to do?</p>
 
 
-<p>Send a message</p>
+<p><%= link_to 'Send a message', new_messages_path(sender_id: @user) %></p>
 <p>Current language is <%= @user.language %>. <%= link_to 'Change language?', {controller: 'users', action: 'edit', id: @user} %></p>
-<p><%= link_to 'Back', {controller: 'users', action: 'index'} %></p>
+<p><%= link_to 'Back', { controller: 'users', action: 'index' } %></p>
 
 <p>Message Bank</p>
 <p>
-	<% @user.messages.each do |message| %>
-	<% if @user == message.sender %>
-	<%= 'Sent to ' + message.receiver + " @" + message.timestamps + ' ' link_to 'View', {controller: 'messages' action: 'show', id: message }%>
-	<% elsif @user == message.receiver %>
-	<%= 'Received from ' + message.sender + " @" + message.timestamps + ' ' link_to 'View', {controller: 'messages' action: 'show', id: message } %>
+	<% @messages.each do |message| %>
+	<% if message.sender_id == nil || message.receiver_id == nil || !User.exists?(message.receiver_id) || !User.exists?(message.sender_id) %>
+	<% next %>
+	<% end %> 
+	<p>
+	<% if @user.id == message.sender_id %>
+	<%= 'Sent to ' + User.find(message.receiver_id).name + " @" + message.created_at.to_s + ' ' %>
+	<%= link_to 'View', { controller: 'messages', action: 'show', id: message } %>
+	<% elsif @user.id == message.receiver_id %>
+	<%= 'Received from '  + User.find(sender_id).name + " @" + message.created_at.to_s + ' ' %>
+	<%= link_to 'View', { controller: 'messages', action: 'show', id: message } %>
+	<% end %>
+	</p>
 	<% end %>
 </p>
-	
-

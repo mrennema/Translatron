@@ -1,0 +1,6 @@
+<h1><%= User.find(@message.sender_id).name + " messaged " + User.find(@message.receiver_id).name + " @" + @message.created_at.to_s %></h1>
+
+<p>Message Contents</p>
+<p><%= @message.text %> </p>
+
+<p><%= link_to 'Back', :back %></p>

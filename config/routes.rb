@@ -8,9 +8,10 @@ Trans::Application.routes.draw do
   resource :users do
     collection do
       get 'index'
+      get '' => 'users#show', as: 'show'
     end
-    resource :messages
   end
+  
       
   resource :messages
   
